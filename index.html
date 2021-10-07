@@ -1,11 +1,121 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <script src="script.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+    <meta charset="UTF-8" />
+    <title>Vue.js & Google Sheets</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <h1>Hello there!</h1>
-    <a href="/me.html">My other page</a>
+    <style>
+      * {
+        font-family: sans-serif;
+      }
+      table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin-bottom: 40px;
+        width: 100%;
+        text-align: center;
+      }
+      th {
+        background-color: lightgray;
+        border: 1px solid black;
+        padding: 5px;
+      }
+      td {
+        border: 1px solid black;
+      }
+
+      tr.all-parks {
+        background: rgb(128 128 128 / 33%);
+      }
+      .park-visited,
+      .park-favorited,
+      .park-id {
+        display: none;
+      }
+
+      .park-name,
+      .park-address,
+      .park-city,
+      .park-country,
+      .park-zipcode,
+      .park-visited,
+      .park-favorited {
+        text-transform: lowercase;
+      }
+
+      td.park-parkName {
+        text-transform: lowercase;
+      }
+    </style>
+    <!-- partial:index.partial.html -->
+    <div id="app">
+      <table v-if="movies.length">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="movie in movies">
+            <td>{{movie.Title}}</td>
+            <td>{{movie.Year}}</td>
+            <td><a :href="movie.Url" target="_blank">{{movie.Url}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table v-if="shows.length">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Last watched season</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="show in shows">
+            <td>{{show.Title}}</td>
+            <td>{{show["Last watched season"]}}</td>
+            <td><a :href="show.Url" target="_blank">{{show.Url}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table v-if="parks.length">
+        <thead>
+          <tr>
+            <th class="park-id">id</th>
+            <th class="park-name">park name</th>
+            <th class="park-address">address</th>
+            <th class="park-city">city</th>
+            <th class="park-country">country</th>
+            <th class="park-zipcode">zipCode</th>
+            <th class="park-visited">visited</th>
+            <th class="park-favorited">favorited</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="all-parks" v-for="park in parks">
+            <td class="park-id">{{park.id}}</td>
+            <td class="park-parkName">{{park.parkName}}</td>
+            <td class="park-address">{{park.address}}</td>
+            <td class="park-city">{{park.city}}</td>
+            <td class="park-country">{{park.county}}</td>
+            <td class="park-zipCode">{{park.zipCode}}</td>
+            <td class="park-visited">{{park.visited}}</td>
+            <td class="park-favorited">{{park.favorite}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- partial -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
